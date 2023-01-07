@@ -10,6 +10,7 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <h1>Hello</h1>
+      <button>xama</button>
 
       <GlobalStyle />
     </ThemeProvider>
