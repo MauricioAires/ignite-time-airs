@@ -8,10 +8,29 @@ export function Home() {
       <form>
         <S.FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
-          <input id="task" type="text" />
+          <S.TaskInput
+            id="task"
+            placeholder="Dê um nome para o seu projeto"
+            type="text"
+            list="task-suggestions"
+          />
+
+          <datalist id="task-suggestions">
+            <option value="Projeto 1"></option>
+            <option value="Projeto 2"></option>
+            <option value="Projeto 3"></option>
+            <option value="Bana"></option>
+          </datalist>
 
           <label htmlFor="minutesAmount">durante</label>
-          <input id="minutesAmount" type="number" />
+          <S.MinutesAmountInput
+            id="minutesAmount"
+            type="number"
+            placeholder="00"
+            step={5}
+            min={0}
+            max={60}
+          />
         </S.FormContainer>
 
         <S.CountdownContainer>
@@ -22,9 +41,9 @@ export function Home() {
           <span>0</span>
         </S.CountdownContainer>
 
-        <button>
+        <S.StartCountdownButton type="submit">
           <Play size={24} /> Começar
-        </button>
+        </S.StartCountdownButton>
       </form>
     </S.HomeContainer>
   )

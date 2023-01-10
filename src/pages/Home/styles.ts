@@ -31,6 +31,42 @@ export const FormContainer = styled.div`
   `}
 `
 
+const BaseInput = styled.input`
+  ${({ theme }) => css`
+    background: transparent;
+    height: 2.5rem;
+    border: 0;
+
+    border-bottom: 2px solid ${theme['gray-500']};
+    font-weight: bold;
+    font-size: 1.125rem;
+    padding: 0 0.5rem;
+    color: ${theme['gray-100']};
+    transition: border-color ease-in-out 0.3s;
+
+    &::placeholder {
+      color: ${theme['gray-500']};
+    }
+
+    &:focus {
+      box-shadow: none;
+      border-color: ${theme['green-500']};
+    }
+  `}
+`
+
+export const TaskInput = styled(BaseInput)`
+  flex: 1;
+
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+`
+
+export const MinutesAmountInput = styled(BaseInput)`
+  width: 4rem;
+`
+
 export const CountdownContainer = styled.div`
   ${({ theme }) => css`
     font-family: 'Roboto Mono', monospace;
@@ -58,5 +94,36 @@ export const Separator = styled.div`
 
     display: flex;
     justify-content: center;
+  `}
+`
+
+export const StartCountdownButton = styled.button`
+  ${({ theme }) => css`
+    width: 100%;
+    border: 0;
+    padding: 1rem;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.5rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: ${theme['green-500']};
+    color: ${theme['gray-100']};
+    transition: background ease-in-out 0.2s;
+
+    &:hover:not(:disabled) {
+      background: ${theme['green-700']};
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   `}
 `
