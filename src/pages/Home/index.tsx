@@ -19,7 +19,7 @@ const newCycleFormValidationSchema = zod.object({
 //   minutesAmount: number
 // }
 
-type NewCycleFormData = zod.inferzod.infer<typeof newCycleFormValidationSchema>
+type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
 export function Home() {
   const { register, handleSubmit, watch } = useForm<NewCycleFormData>({
