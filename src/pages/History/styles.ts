@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 
 export const HistoryContainer = styled.main`
   ${({ theme }) => css`
@@ -60,6 +60,38 @@ export const HistoryList = styled.div`
           padding-right: 1.5rem;
         }
       }
+    }
+  `}
+`
+
+const modifiersStatus = {
+  yellow: (theme: DefaultTheme) => css`
+    background: ${theme['yellow-500']};
+  `,
+  red: (theme: DefaultTheme) => css`
+    background: ${theme['red-500']};
+  `,
+  green: (theme: DefaultTheme) => css`
+    background: ${theme['green-500']};
+  `
+}
+interface StatusProps {
+  statusColor: keyof typeof modifiersStatus
+}
+
+export const Status = styled.span<StatusProps>`
+  ${({ theme, statusColor }) => css`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 100%;
+
+      ${modifiersStatus[statusColor](theme)}
     }
   `}
 `
