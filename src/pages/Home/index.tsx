@@ -12,7 +12,7 @@ const newCycleFormValidationSchema = zod.object({
   minutesAmount: zod
     .number()
     .min(5, 'O ciclo precisa ser de no mínimo 5 minutos')
-    .max(60, 'O ciclo precisa ser de no máximo 60 minutos')
+    .max(60, 'O ciclo precisa ser de no máximo 60 minutos'),
 })
 
 // interface NewCycleFormData {
@@ -28,6 +28,7 @@ interface Cycle {
   minutesAmount: number
   startDate: Date
   interruptedDate?: Date
+  finishedDate?: Date
 }
 
 export function Home() {
@@ -39,26 +40,45 @@ export function Home() {
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       minutesAmount: 0,
-      task: ''
-    }
+      task: '',
+    },
   })
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
 
   useEffect(() => {
     let interval: number
     if (activeCycle) {
       interval = setInterval(() => {
-        setAmountSecondsPassed(
-          differenceInSeconds(new Date(), activeCycle.startDate)
+        const secondsDifference = differenceInSeconds(
+          new Date(),
+          activeCycle.startDate,
         )
+
+        if (secondsDifference >= totalSeconds) {
+          setCycles((state) =>
+            state.map((cycle) => {
+              if (cycle.id === activeCycleId) {
+                return {
+                  ...cycle,
+
+                  finishedDate: new Date(),
+                }
+              }
+              return cycle
+            }),
+          )
+        } else {
+          setAmountSecondsPassed(secondsDifference)
+        }
       }, 1000)
     }
 
     return () => {
       clearInterval(interval)
     }
-  }, [amountSecondsPassed, activeCycle])
+  }, [amountSecondsPassed, activeCycle, totalSeconds, activeCycleId])
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     const taskId = String(new Date().getTime())
@@ -67,7 +87,7 @@ export function Home() {
       id: taskId,
       minutesAmount: data.minutesAmount,
       task: data.task,
-      startDate: new Date()
+      startDate: new Date(),
     }
 
     setCycles((state) => [...state, newCycle])
@@ -78,22 +98,21 @@ export function Home() {
   }
 
   function handleInterruptCycle() {
-    setCycles(
-      cycles.map((cycle) => {
+    setCycles((state) =>
+      state.map((cycle) => {
         if (cycle.id === activeCycleId) {
           return {
             ...cycle,
-            interruptedDate: new Date()
+            interruptedDate: new Date(),
           }
         }
         return cycle
-      })
+      }),
     )
 
     setActiveCycleId(null)
   }
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
 
   const minutesAmount = Math.floor(currentSeconds / 60)
@@ -106,7 +125,7 @@ export function Home() {
     if (activeCycle) {
       document.title = `${minutes}: ${seconds}`
     }
-  }, [minutes, seconds])
+  }, [minutes, seconds, activeCycle])
 
   const task = watch('task')
   const isSubmitDisabled = !task
@@ -140,7 +159,7 @@ export function Home() {
             min={0}
             // max={60}
             {...register('minutesAmount', {
-              valueAsNumber: true
+              valueAsNumber: true,
             })}
           />
         </S.FormContainer>

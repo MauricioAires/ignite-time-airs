@@ -73,7 +73,7 @@ const modifiersStatus = {
   `,
   green: (theme: DefaultTheme) => css`
     background: ${theme['green-500']};
-  `
+  `,
 }
 interface StatusProps {
   statusColor: keyof typeof modifiersStatus
