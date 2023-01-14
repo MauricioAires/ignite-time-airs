@@ -1,7 +1,9 @@
 import { useFormContext } from 'react-hook-form'
+import { useCycles } from '../../../../contexts/CyclesContext'
 import * as S from './styles'
 
 export function NewCycleForm() {
+  const { activeCycle } = useCycles()
   const { register } = useFormContext()
 
   return (
@@ -11,6 +13,7 @@ export function NewCycleForm() {
         id="task"
         placeholder="Dê um nome para o seu projeto"
         type="text"
+        disabled={!!activeCycle}
         list="task-suggestions"
         {...register('task')}
       />
