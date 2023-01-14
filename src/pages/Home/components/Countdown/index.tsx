@@ -68,7 +68,10 @@ export function Countdown() {
   useEffect(() => {
     if (activeCycle) {
       document.title = `${minutes}: ${seconds}`
+      return
     }
+
+    document.title = 'Ignite Time Airs'
   }, [minutes, seconds, activeCycle])
   return (
     <S.CountdownContainer>
