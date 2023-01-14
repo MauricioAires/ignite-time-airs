@@ -7,6 +7,10 @@ export const LayoutContainer = styled.div`
     margin: 5rem auto;
     padding: 2.5rem;
 
+    @media (max-width: 620px) {
+      padding: 1rem;
+    }
+
     background: ${theme['gray-900']};
     border-radius: 8px;
 
