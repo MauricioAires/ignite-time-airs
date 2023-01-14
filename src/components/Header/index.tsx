@@ -8,7 +8,9 @@ import * as S from './styles'
 export function Header() {
   return (
     <S.HeaderContainer>
-      <img src={logoIgnite} alt="" />
+      <NavLink to="/">
+        <img src={logoIgnite} alt="" />
+      </NavLink>
       <nav>
         <NavLink to="/" title="Timer">
           <Timer size={24} />
