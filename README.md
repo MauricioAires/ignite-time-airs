@@ -13,7 +13,12 @@
 
 ### Sobre o projeto
 
---
+A Técnica Pomodoro é um método de gerenciamento de tempo que consiste na utilização de um cronômetro para dividir o trabalho em períodos curtos de tempo separados por breves intervalos. Com o Ignite Timer você consegue aplicar facilmente essa técnica no seu dia a dia e aumentar sua produtividade.
+
+- [x] Escolha ou crie sua própria tarefa
+- [x] Defina o período que você quer trabalhar
+- [x] Inicie ou interrompa um ciclo
+- [x] Histórico de ciclos
 
 ---
 
